@@ -3,6 +3,7 @@ package com.mediscan.service;
 import com.mediscan.config.AppConfig;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -19,7 +20,7 @@ public class OcrService {
     }
 
     private String extractPdfText(File file) throws IOException {
-        try (PDDocument doc = PDDocument.load(file)) {
+        try (PDDocument doc = Loader.loadPDF(file)) {
             PDFTextStripper stripper = new PDFTextStripper();
             return stripper.getText(doc);
         }
